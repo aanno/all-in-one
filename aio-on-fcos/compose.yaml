@@ -43,18 +43,27 @@ services:
     image: caddy:alpine
     restart: always
     container_name: caddy
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8000:80"
+      - "4400:4400"
+      - "4443:443"
+      - "4443:443/udp"
     volumes:
       - caddy_certs:/certs:z
       - caddy_config:/config:z
       - caddy_data:/data:z
       - caddy_sites:/srv:z
-      # - Caddyfile:/etc/caddy/Caddyfile:z
-    network_mode: "host"
+      - ./Caddyfile:/Caddyfile:ro,z
+      # https://hub.docker.com/_/caddy
+      - ./caddy:/etc/caddy:ro,z
+    # network_mode: "host"
     # https://docs.docker.com/reference/compose-file/configs/
     # _not_ supported with podman: https://github.com/containers/podman-compose/issues/835
-    configs:
-      Caddyfile: 
-        file: ./Caddyfile
+    # configs:
+    #   Caddyfile:
+    #     file: ./Caddyfile
     #   - source: ./Caddyfile
     #     target: /etc/caddy/Caddyfile
     #  configs:
