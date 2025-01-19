@@ -44,22 +44,16 @@ services:
     image: docker.io/library/caddy:latest
     restart: never
     container_name: caddy
-    # cap_add:
-    #   - NET_ADMIN
-    ports:
-      - "80:80"
-      #- "4400:4400"
-      - "443:443"
-      - "443:443/udp"
     volumes:
       - caddy_certs:/certs:z
       - caddy_config:/config:z
       - caddy_data:/data:z
       - caddy_sites:/srv:z
-      # - ./caddy/Caddyfile:/Caddyfile:ro,z
+      # this is what 'configs' would do (tp)
+      - ./caddy/Caddyfile:/Caddyfile:ro,z
       # https://hub.docker.com/_/caddy
       - ./caddy:/etc/caddy:ro,z
-    # network_mode: "host"
+    network_mode: "host"
     # https://docs.docker.com/reference/compose-file/configs/
     # _not_ supported with podman: https://github.com/containers/podman-compose/issues/835
     # configs:
