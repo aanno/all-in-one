@@ -2,21 +2,22 @@ services:
   nextcloud-aio-mastercontainer:
     image: nextcloud/all-in-one:latest
     init: true
-    restart: always
+    restart: never
     container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config:z # This line is not allowed to be changed as otherwise the built-in backup solution will not work
       - $DOCKER_SOCKET:/var/run/docker.sock:ro,z # May be changed on macOS, Windows or docker rootless. See the applicable documentation. If adjusting, don't forget to also set 'WATCHTOWER_DOCKER_SOCKET_PATH'!
-    network_mode: bridge # add to the same network as docker run would do
+    # network_mode: bridge # add to the same network as docker run would do
     ports:
-      - 80:80 # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      # - 80:80 # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
       - 8080:8080
-      - 8443:8443 # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      # - 8443:8443 # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
     environment: # Is needed when using any of the options below
       # AIO_DISABLE_BACKUP_SECTION: false # Setting this to true allows to hide the backup section in the AIO interface. See https://github.com/nextcloud/all-in-one#how-to-disable-the-backup-section
       # AIO_COMMUNITY_CONTAINERS: # With this variable, you can add community containers very easily. See https://github.com/nextcloud/all-in-one/tree/main/community-containers#community-containers
       APACHE_PORT: 11000 # Is needed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-      APACHE_IP_BINDING: 127.0.0.1 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      # APACHE_IP_BINDING: 127.0.0.1 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      APACHE_IP_BINDING: 0.0.0.0
       # APACHE_ADDITIONAL_NETWORK: frontend_net # (Optional) Connect the apache container to an additional docker network. Needed when behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) running in a different docker network on same server. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
       # BORG_RETENTION_POLICY: --keep-within=7d --keep-weekly=4 --keep-monthly=6 # Allows to adjust borgs retention policy. See https://github.com/nextcloud/all-in-one#how-to-adjust-borgs-retention-policy
       # COLLABORA_SECCOMP_DISABLED: false # Setting this to true allows to disable Collabora's Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature
@@ -41,21 +42,21 @@ services:
 #   # You can find further examples here: https://github.com/nextcloud/all-in-one/discussions/588
   caddy:
     image: caddy:alpine
-    restart: always
+    restart: never
     container_name: caddy
-    cap_add:
-      - NET_ADMIN
+    # cap_add:
+    #   - NET_ADMIN
     ports:
-      - "8000:80"
-      - "4400:4400"
-      - "4443:443"
-      - "4443:443/udp"
+      - "80:80"
+      #- "4400:4400"
+      - "443:443"
+      - "443:443/udp"
     volumes:
       - caddy_certs:/certs:z
       - caddy_config:/config:z
       - caddy_data:/data:z
       - caddy_sites:/srv:z
-      - ./caddy/Caddyfile:/Caddyfile:ro,z
+      # - ./caddy/Caddyfile:/Caddyfile:ro,z
       # https://hub.docker.com/_/caddy
       - ./caddy:/etc/caddy:ro,z
     # network_mode: "host"
