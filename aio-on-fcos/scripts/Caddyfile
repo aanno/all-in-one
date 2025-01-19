@@ -2,11 +2,14 @@
     # debug
 }
 
-# Adjust cloud.example.com to your domain below
-https://$AIO_DOMAIN:443 {
+https://${AIO_DOMAIN}:443 {
   reverse_proxy nextcloud-aio-mastercontainer:11000
 }
 
-$AIO_DOMAIN {
-  redir https://$AIO_DOMAIN:443
+https://${AIO_DOMAIN}:8443 {
+  reverse_proxy nextcloud-aio-mastercontainer:11000
+}
+
+${AIO_DOMAIN} {
+  redir https://${AIO_DOMAIN}:443
 }
