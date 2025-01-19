@@ -6,10 +6,17 @@ https://${AIO_DOMAIN}:443 {
   reverse_proxy nextcloud-aio-mastercontainer:11000
 }
 
+# See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+# Optional: get a valid certificate for the AIO interface
 https://${AIO_DOMAIN}:8443 {
-  reverse_proxy nextcloud-aio-mastercontainer:11000
+    reverse_proxy https://${MY_IPV4_ADDR}:8080 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
 }
 
+# Is this really needed? (Caddy seems to do that out-of-the-box.)
 ${AIO_DOMAIN} {
   redir https://${AIO_DOMAIN}:443
 }

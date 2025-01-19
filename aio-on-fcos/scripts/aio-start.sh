@@ -5,7 +5,7 @@ if [ ! -f .env ]; then
     exit -1
 fi
 source .env
-export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION
+export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION MY_IPV4_ADDR
 
 envsubst <./scripts/Caddyfile >./caddy/Caddyfile
 
