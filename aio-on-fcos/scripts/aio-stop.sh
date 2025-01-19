@@ -6,7 +6,4 @@ if [ ! -f .env ]; then
 fi
 source .env
 
-envsubst <./scripts/Caddyfile >./caddy/Caddyfile
-
-$DOCKER compose -p aio up -d
-$DOCKER compose -p aio logs -f
+$DOCKER compose -p aio down

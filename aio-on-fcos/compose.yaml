@@ -1,6 +1,6 @@
 services:
   nextcloud-aio-mastercontainer:
-    image: nextcloud/all-in-one:latest
+    image: docker.io/nextcloud/all-in-one:latest
     init: true
     restart: never
     container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
@@ -41,7 +41,7 @@ services:
 #   # Hint: You need to uncomment APACHE_PORT: 11000 above, adjust cloud.example.com to your domain and uncomment the necessary docker volumes at the bottom of this file in order to make it work
 #   # You can find further examples here: https://github.com/nextcloud/all-in-one/discussions/588
   caddy:
-    image: caddy:alpine
+    image: docker.io/library/caddy:latest
     restart: never
     container_name: caddy
     # cap_add:
