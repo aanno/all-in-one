@@ -18,3 +18,26 @@ Status:
 * [docker compose: .env files and env_file property](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/)
 
 * [Connection refused / 502 / Upgrade-Insecure-Requests](https://caddy.community/t/connection-refused-502-upgrade-insecure-requests-error-for-a-single-app-the-rest-work-fine/18742)
+
+## AIO gotchas
+
+```bash
+sudo systemctl status firewalld.service 
+sudo systemctl stop firewalld.service 
+sudo systemctl disable firewalld.service 
+```
+
+* fcos enables *firewall*
+  + simplest solution is to disable firewall
+  + firewall might be up again after fcos upgrades
+* proxy has to run in *host_mode*
+  + using non-host more will interfere with the aio magic
+* standalone (i.e. _without_ proxy) will not work (as well)
+  + reason seems to be that domaincheck container does not work properly on fcos
+
+
+```bash
+CONTAINER ID  IMAGE                                       COMMAND     CREATED             STATUS                     PORTS                                                                         NAMES
+167e868f5255  docker.io/nextcloud/all-in-one:latest                   About a minute ago  Up About a minute          0.0.0.0:80->80/tcp, 0.0.0.0:8080->8080/tcp, 0.0.0.0:8443->8443/tcp, 9000/tcp  nextcloud-aio-mastercontainer
+f1db6aa8580c  docker.io/nextcloud/aio-domaincheck:latest              36 seconds ago      Exited (0) 36 seconds ago  0.0.0.0:443->443/tcp                                                          nextcloud-aio-domaincheck
+```
