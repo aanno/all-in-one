@@ -1,3 +1,5 @@
+/aio-on-fcos/caddy/Caddyfile
+/aio-on-fcos/.env
 .DS_Store
 .idea/
 *.iml
