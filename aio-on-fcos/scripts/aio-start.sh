@@ -9,5 +9,6 @@ export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION MY_IPV
 
 envsubst <./scripts/Caddyfile >./caddy/Caddyfile
 
+$DOCKER compose pull
 $DOCKER compose -p aio up -d
 $DOCKER compose -p aio logs -f
