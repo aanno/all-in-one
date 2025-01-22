@@ -41,3 +41,16 @@ CONTAINER ID  IMAGE                                       COMMAND     CREATED   
 167e868f5255  docker.io/nextcloud/all-in-one:latest                   About a minute ago  Up About a minute          0.0.0.0:80->80/tcp, 0.0.0.0:8080->8080/tcp, 0.0.0.0:8443->8443/tcp, 9000/tcp  nextcloud-aio-mastercontainer
 f1db6aa8580c  docker.io/nextcloud/aio-domaincheck:latest              36 seconds ago      Exited (0) 36 seconds ago  0.0.0.0:443->443/tcp                                                          nextcloud-aio-domaincheck
 ```
+
+## temporary add interface, static ip addr, and route
+
+```bash
+ip addr add 192.168.27.1/24 dev enp9s0
+ip route add 192.168.27.0/24 dev enp9s0
+```
+
+```bash
+```
+
+```bash
+```
