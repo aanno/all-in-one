@@ -5,6 +5,7 @@ services:
     restart: never
     container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
     volumes:
+      - ./backup:/mnt/backup:z
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config:z # This line is not allowed to be changed as otherwise the built-in backup solution will not work
       - $DOCKER_SOCKET:/var/run/docker.sock:ro,z # May be changed on macOS, Windows or docker rootless. See the applicable documentation. If adjusting, don't forget to also set 'WATCHTOWER_DOCKER_SOCKET_PATH'!
     # network_mode: bridge # add to the same network as docker run would do
@@ -23,6 +24,7 @@ services:
       # COLLABORA_SECCOMP_DISABLED: false # Setting this to true allows to disable Collabora's Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature
       # NEXTCLOUD_DATADIR: /mnt/ncdata # Allows to set the host directory for Nextcloud's datadir. ⚠️⚠️⚠️ Warning: do not set or adjust this value after the initial Nextcloud installation is done! See https://github.com/nextcloud/all-in-one#how-to-change-the-default-location-of-nextclouds-datadir
       # NEXTCLOUD_MOUNT: /mnt/ # Allows the Nextcloud container to access the chosen directory on the host. See https://github.com/nextcloud/all-in-one#how-to-allow-the-nextcloud-container-to-access-directories-on-the-host
+      NEXTCLOUD_MOUNT: /var/home/nc/scm/all-in-one/aio-on-fcos/backup
       # NEXTCLOUD_UPLOAD_LIMIT: 16G # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-upload-limit-for-nextcloud
       # NEXTCLOUD_MAX_TIME: 3600 # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-max-execution-time-for-nextcloud
       # NEXTCLOUD_MEMORY_LIMIT: 512M # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-php-memory-limit-for-nextcloud
@@ -45,6 +47,7 @@ services:
     restart: never
     container_name: caddy
     volumes:
+      - ./backup:/mnt/backup:z
       - caddy_certs:/certs:z
       - caddy_config:/config:z
       - caddy_data:/data:z
