@@ -11,9 +11,50 @@ $DOCKER compose -p aio down
 
 sleep 2
 
-$DOCKER rm -f \
+$DOCKER stop \
+  caddy \
   nextcloud-aio-apache \
   nextcloud-aio-notify-push \
   nextcloud-aio-nextcloud \
   nextcloud-aio-database \
-  nextcloud-aio-redis
+  nextcloud-aio-redis \
+  nextcloud-aio-whiteboard \
+  nextcloud-aio-fulltextsearch \
+  nextcloud-aio-talk \
+  nextcloud-aio-collabora \
+  nextcloud-aio-watchtower  nextcloud-aio-apache \
+  nextcloud-aio-notify-push \
+  nextcloud-aio-nextcloud \
+  nextcloud-aio-database \
+  nextcloud-aio-redis \
+  nextcloud-aio-whiteboard \
+  nextcloud-aio-fulltextsearch \
+  nextcloud-aio-talk \
+  nextcloud-aio-collabora \
+  nextcloud-aio-imaginary \
+  nextcloud-aio-watchtower
+
+
+$DOCKER rm -f \
+  caddy \
+  nextcloud-aio-apache \
+  nextcloud-aio-notify-push \
+  nextcloud-aio-nextcloud \
+  nextcloud-aio-database \
+  nextcloud-aio-redis \
+  nextcloud-aio-whiteboard \
+  nextcloud-aio-fulltextsearch \
+  nextcloud-aio-talk \
+  nextcloud-aio-collabora \
+  nextcloud-aio-watchtower  nextcloud-aio-apache \
+  nextcloud-aio-notify-push \
+  nextcloud-aio-nextcloud \
+  nextcloud-aio-database \
+  nextcloud-aio-redis \
+  nextcloud-aio-whiteboard \
+  nextcloud-aio-fulltextsearch \
+  nextcloud-aio-talk \
+  nextcloud-aio-collabora \
+  nextcloud-aio-imaginary \
+  nextcloud-aio-watchtower
+
