@@ -1,0 +1,6 @@
+nextcloud.breitbandig.de.            IN  SOA    dns.nextcloud.breitbandig.de. nc.nextcloud.breitbandig.de. 2015082541 7200 3600 1209600 3600
+gateway.nextcloud.breitbandig.de.    IN  A      10.89.57.1
+dns.nextcloud.breitbandig.de.        IN  A      10.89.57.4
+host.nextcloud.breitbandig.de.       IN  A      152.53.117.0
+server.nextcloud.breitbandig.de.     IN  CNAME  gateway.nextcloud.breitbandig.de.
+nextcloud.breitbandig.de.            IN  CNAME  server.nextcloud.breitbandig.de.

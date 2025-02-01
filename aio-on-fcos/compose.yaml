@@ -86,6 +86,20 @@ services:
     #        https://nextcloud.local:4443 {
     #          reverse_proxy localhost:11000
     #        }
+  coredns:
+    image: docker.io/coredns/coredns
+    dns: 10.89.4.1
+    # It is not needed to expose the DNS server - it is local to the dnsexample network
+    # ports:
+    #   - 53/udp
+    #   - 53/tcp
+    volumes:
+      - ./coredns:/etc/coredns:z,ro
+    networks:
+      nextcloud-aio:
+        ipv4_address: 10.89.57.4
+    command: -conf /etc/coredns/Corefile
+
 
 volumes: # If you want to store the data on a different drive, see https://github.com/nextcloud/all-in-one#how-to-store-the-filesinstallation-on-a-separate-drive
   nextcloud_aio_mastercontainer:
@@ -99,7 +113,7 @@ volumes: # If you want to store the data on a different drive, see https://githu
 # podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge nextcloud-aio
 networks:
   nextcloud-aio:
-    # external: true
+    external: true
   nextcloud_frontend:
     # external: true
   aio_default:

@@ -1,0 +1,17 @@
+.:53 {
+    forward . 10.89.57.1
+    log
+    errors
+}
+
+nextcloud.breitbandig.de:53 {
+    file /etc/coredns/nextcloud.breitbandig.de
+    log
+    errors
+}
+
+nextcloud.local:53 {
+    file /etc/coredns/nextcloud.local
+    log
+    errors
+}
