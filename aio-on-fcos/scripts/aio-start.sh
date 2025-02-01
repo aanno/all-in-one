@@ -12,6 +12,7 @@ envsubst <./scripts/Caddyfile >./caddy/Caddyfile
 $DOCKER run --rm -v caddy:/etc/caddy:z docker.io/library/caddy:latest \
   caddy fmt --overwrite /etc/caddy/Caddyfile
 
+if [ ]; then
 $DOCKER pull docker.io/nextcloud/all-in-one:latest
 $DOCKER pull docker.io/nextcloud/aio-postgresql:latest
 $DOCKER pull docker.io/nextcloud/aio-redis:latest
@@ -22,5 +23,7 @@ $DOCKER pull docker.io/nextcloud/aio-apache:latest
 $DOCKER pull docker.io/library/caddy:latest 
 
 $DOCKER compose pull
+fi
+
 $DOCKER compose -p aio up -d
 $DOCKER compose -p aio logs -f

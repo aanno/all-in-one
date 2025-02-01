@@ -1,5 +1,19 @@
 .:53 {
+    forward . 192.168.10.2
+    forward nextcloud-aio-apache 10.89.57.1
+    forward nextcloud-aio-nextcloud 10.89.57.1
+    log
+    errors
+}
+
+dns.podman:53 {
     forward . 10.89.57.1
+    log
+    errors
+}
+
+docker.io:53 {
+    forward . 192.168.10.2
     log
     errors
 }
