@@ -32,7 +32,8 @@ $DOCKER stop \
   nextcloud-aio-talk \
   nextcloud-aio-collabora \
   nextcloud-aio-imaginary \
-  nextcloud-aio-watchtower
+  nextcloud-aio-watchtower \
+  nextcloud-aio-domaincheck
 
 
 $DOCKER rm -f \
@@ -56,5 +57,6 @@ $DOCKER rm -f \
   nextcloud-aio-talk \
   nextcloud-aio-collabora \
   nextcloud-aio-imaginary \
-  nextcloud-aio-watchtower
+  nextcloud-aio-watchtower \
+  nextcloud-aio-domaincheck
 

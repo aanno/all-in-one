@@ -10,7 +10,9 @@
 			"formulahendry.docker-extension-pack",
 			"matthewpi.caddyfile-support",
 			"DavidAnson.vscode-markdownlint",
-			"jrieken.md-navigate"
+			"jrieken.md-navigate",
+			"ikappas.composer",
+			"DEVSENSE.phptools-vscode"
 		],
 		"unwantedRecommendations": [
 

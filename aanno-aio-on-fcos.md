@@ -62,3 +62,14 @@ ip route add 192.168.27.0/24 dev enp9s0
 * [docker engine socket api](https://docs.docker.com/reference/api/engine/version/v1.39/)
 * [Make podman more compatible with docker so I can run nextcloud all-in-one (AIO) on it](https://github.com/containers/podman/discussions/25125)
 * [Make it more easy to modify /etc/hosts from within container by having it read-write (rw)](https://github.com/containers/podman/issues/25126)
+
+
+## mastercontainer
+
+### php code
+
+```bash
+$ sudo dnf install composer php-sodium php-pecl-apcu-devel
+$ cd php
+$ composer install
+```
