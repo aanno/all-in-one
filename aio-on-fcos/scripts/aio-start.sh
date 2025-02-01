@@ -8,6 +8,9 @@ source .env
 export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION MY_IPV4_ADDR
 
 envsubst <./scripts/Caddyfile >./caddy/Caddyfile
+# format
+$DOCKER run --rm -v caddy:/etc/caddy:z docker.io/library/caddy:latest \
+  caddy fmt --overwrite /etc/caddy/Caddyfile
 
 $DOCKER pull docker.io/nextcloud/all-in-one:latest
 $DOCKER pull docker.io/nextcloud/aio-postgresql:latest

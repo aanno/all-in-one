@@ -4,6 +4,12 @@ services:
     init: true
     restart: never
     container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
+    # defining networks _will_ break mastercontainer
+    # networks:
+    # from '-p aio': aio_nextcloud-aio
+    #   - nextcloud-aio
+    # controlled by mastercontainer
+    #   - aio_default
     extra_hosts:
       - $AIO_DOMAIN:host-gateway
     volumes:
@@ -22,6 +28,7 @@ services:
       # APACHE_IP_BINDING: 127.0.0.1 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
       APACHE_IP_BINDING: 0.0.0.0
       # APACHE_ADDITIONAL_NETWORK: frontend_net # (Optional) Connect the apache container to an additional docker network. Needed when behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) running in a different docker network on same server. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      APACHE_ADDITIONAL_NETWORK: nextcloud_frontend
       # BORG_RETENTION_POLICY: --keep-within=7d --keep-weekly=4 --keep-monthly=6 # Allows to adjust borgs retention policy. See https://github.com/nextcloud/all-in-one#how-to-adjust-borgs-retention-policy
       # COLLABORA_SECCOMP_DISABLED: false # Setting this to true allows to disable Collabora's Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature
       # NEXTCLOUD_DATADIR: /mnt/ncdata # Allows to set the host directory for Nextcloud's datadir. ⚠️⚠️⚠️ Warning: do not set or adjust this value after the initial Nextcloud installation is done! See https://github.com/nextcloud/all-in-one#how-to-change-the-default-location-of-nextclouds-datadir
@@ -49,6 +56,9 @@ services:
     image: docker.io/library/caddy:latest
     restart: never
     container_name: caddy
+    # does not work with host network_mode
+    # networks:
+    #   - nextcloud_frontend
     extra_hosts:
       - $AIO_DOMAIN:host-gateway
     volumes:
@@ -84,3 +94,13 @@ volumes: # If you want to store the data on a different drive, see https://githu
   caddy_config:
   caddy_data:
   caddy_sites:
+
+# create with:
+# podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge nextcloud-aio
+networks:
+  nextcloud-aio:
+    # external: true
+  nextcloud_frontend:
+    # external: true
+  aio_default:
+    # external: true
