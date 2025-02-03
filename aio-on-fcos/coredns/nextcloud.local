@@ -1,5 +1,5 @@
 nextcloud.local.            IN  SOA     dns.nextcloud.local. nc.nextcloud.local. 2015082541 7200 3600 1209600 3600
-nextcloud.local.            IN  A       10.89.57.1
+nextcloud.local.            IN  A       169.254.1.2
 gateway.nextcloud.local.    IN  A       10.89.57.1
 dns.nextcloud.local.        IN  A       10.89.57.4
 host.nextcloud.local.       IN  A       192.168.10.139
