@@ -1,5 +1,6 @@
 !/aio-on-fcos/backup/.keep
 /aio-on-fcos/backup/
+/aio-on-fcos/coredns/
 /aio-on-fcos/caddy/Caddyfile
 /aio-on-fcos/.env
 .DS_Store

@@ -11,26 +11,12 @@
     erratic
 }
 
-nextcloud.breitbandig.de:53 {
+${AIO_DOMAIN}:53 {
     auto {
         directory /etc/coredns
         reload 15s
     }
-    file /etc/coredns/nextcloud.breitbandig.de
-    log . {combined} {
-        class denial error
-    }
-    errors
-    reload 15s
-    erratic
-}
-
-nextcloud.local:53 {
-    auto {
-        directory /etc/coredns
-        reload 15s
-    }
-    file /etc/coredns/nextcloud.local
+    file /etc/coredns/nextcloud-domain
     log . {combined} {
         class denial error
     }

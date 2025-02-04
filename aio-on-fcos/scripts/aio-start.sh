@@ -5,12 +5,18 @@ if [ ! -f .env ]; then
     exit -1
 fi
 source .env
-export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION MY_IPV4_ADDR
+export DOCKER DOCKER_SOCKET DOCKER_HOST AIO_DOMAIN SKIP_DOMAIN_VALIDATION \
+  MY_IPV4_ADDR HOST_CONTAINER_INTERNAL NEXTCLOUD_MOUNT
 
 envsubst <./scripts/Caddyfile >./caddy/Caddyfile
 # format
 $DOCKER run --rm -v caddy:/etc/caddy:z docker.io/library/caddy:latest \
   caddy fmt --overwrite /etc/caddy/Caddyfile
+
+rm -r coredns
+mkdir coredns
+envsubst <./coredns-template/Corefile >./coredns/Corefile
+envsubst <./coredns-template/nextcloud-domain >./coredns/nextcloud-domain
 
 if [ ]; then
 $DOCKER pull docker.io/nextcloud/all-in-one:latest
