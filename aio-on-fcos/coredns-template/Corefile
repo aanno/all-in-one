@@ -1,0 +1,26 @@
+.:53 {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername one.one.one.one
+        health_check 5s
+    }
+    log . {combined} {
+        class denial error
+    }
+    errors
+    reload 15s
+    erratic
+}
+
+${AIO_DOMAIN}:53 {
+    auto {
+        directory /etc/coredns
+        reload 15s
+    }
+    file /etc/coredns/nextcloud-domain
+    log . {combined} {
+        class denial error
+    }
+    errors
+    reload 15s
+    erratic
+}
