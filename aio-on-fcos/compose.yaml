@@ -98,6 +98,7 @@ services:
     networks:
       nextcloud-aio:
         ipv4_address: 10.89.57.4
+        ipv6_address: fd49:dc34:d0fe:ef6b:cafe::4
     command: -conf /etc/coredns/Corefile
 
 
@@ -111,10 +112,13 @@ volumes: # If you want to store the data on a different drive, see https://githu
 
 # create with:
 # podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge nextcloud-aio
+# podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:cafe::/80 --gateway fd49:dc34:d0fe:ef6b:cafe::1 --dns fd49:dc34:d0fe:ef6b:cafe::4 nextcloud-aio
 networks:
   nextcloud-aio:
     external: true
   nextcloud_frontend:
-    # external: true
+    external: true
   aio_default:
     # external: true
+
+# podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud_frontend
