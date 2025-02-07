@@ -34,7 +34,8 @@ $DOCKER stop \
   nextcloud-aio-collabora \
   nextcloud-aio-imaginary \
   nextcloud-aio-watchtower \
-  nextcloud-aio-domaincheck
+  nextcloud-aio-domaincheck \
+  nextcloud-aio-borgbackup
 
 
 $DOCKER rm -f \
@@ -59,5 +60,6 @@ $DOCKER rm -f \
   nextcloud-aio-collabora \
   nextcloud-aio-imaginary \
   nextcloud-aio-watchtower \
-  nextcloud-aio-domaincheck
+  nextcloud-aio-domaincheck \
+  nextcloud-aio-borgbackup
 

@@ -26,6 +26,7 @@ $DOCKER pull docker.io/nextcloud/aio-watchtower:latest
 $DOCKER pull docker.io/nextcloud/aio-domaincheck:latest
 $DOCKER pull docker.io/nextcloud/aio-notify-push:latest
 $DOCKER pull docker.io/nextcloud/aio-apache:latest
+$DOCKER pull docker.io/nextcloud/aio-borgbackup:latest
 $DOCKER pull docker.io/library/caddy:latest 
 
 $DOCKER compose pull
