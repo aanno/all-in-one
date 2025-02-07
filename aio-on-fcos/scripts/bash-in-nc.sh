@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-podman exec -it nextcloud-aio-nextcloud bash
+podman exec --user www-data -it nextcloud-aio-nextcloud bash
 
 
 
