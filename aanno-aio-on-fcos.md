@@ -294,3 +294,9 @@ $ sudo dnf install composer php-sodium php-pecl-apcu-devel
 $ cd php
 $ composer install
 ```
+
+## coredns
+
+* [coredns](https://github.com/coredns/coredns)
+* [Running CoreDNS as a DNS Server in a Container](https://dev.to/robbmanes/running-coredns-as-a-dns-server-in-a-container-1d0)
+* [Add support for CloudFlare's new 1.1.1.1 DNS-over-HTTPS service](https://github.com/coredns/coredns/issues/1650)
