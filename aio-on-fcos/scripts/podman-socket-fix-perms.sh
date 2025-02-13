@@ -4,7 +4,9 @@
 MY_UID=720928
 MY_GID=720928
 
-export DOCKER_SOCKET=/run/user/$UID/podman/podman.sock
+USERID=`id -u nc`
+
+export DOCKER_SOCKET=/run/user/$USERID/podman/podman.sock
 export DOCKER_HOST=unix://$DOCKER_SOCKET
 echo "export DOCKER_SOCKET=$DOCKER_SOCKET"
 echo "export DOCKER_HOST=$DOCKER_HOST"
@@ -16,7 +18,7 @@ chmod g+rw o-rwx $DOCKER_SOCKET
 podman system connection list
 
 curl -H "Content-Type: application/json" \
-	--unix-socket /run/user/$UID/podman/podman.sock \
+	--unix-socket /run/user/$USERID/podman/podman.sock \
     http://localhost/_ping
 echo ""
 
