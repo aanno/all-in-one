@@ -54,9 +54,11 @@ services:
 #   # Hint: You need to uncomment APACHE_PORT: 11000 above, adjust cloud.example.com to your domain and uncomment the necessary docker volumes at the bottom of this file in order to make it work
 #   # You can find further examples here: https://github.com/nextcloud/all-in-one/discussions/588
   caddy:
-    image: docker.io/library/caddy:latest
+    # image: docker.io/library/caddy:latest
+    build: ./caddy_build
     restart: never
     container_name: caddy
+    env_file: netcup.env
     # does not work with host network_mode
     # networks:
     #   - nextcloud_frontend
@@ -67,7 +69,7 @@ services:
       - caddy_certs:/certs:z
       - caddy_config:/config:z
       - caddy_data:/data:z
-      - caddy_sites:/srv:z
+      - ./caddy_sites:/srv:z
       # this is what 'configs' would do (tp)
       - ./caddy/Caddyfile:/Caddyfile:ro,z
       # https://hub.docker.com/_/caddy

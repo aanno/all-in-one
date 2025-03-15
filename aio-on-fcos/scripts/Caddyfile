@@ -6,9 +6,30 @@
 
 *.${AIO_BASE_DOMAIN} *.${OTHER_BASE_DOMAIN} {
 
+  tls {
+    dns netcup {
+      customer_number {env.NETCUP_CUSTOMER_NUMBER}
+      api_key {env.NETCUP_API_KEY}
+      api_password {env.NETCUP_API_PASSWORD}
+    }
+  }
+
   @nextcloud host ${AIO_DOMAIN} 
   handle @nextcloud {
     reverse_proxy localhost:11000
+  }
+
+  @base host ${AIO_BASE_DOMAIN}
+  handle @base {
+    # https://caddyserver.com/docs/caddyfile/directives/root
+    root * /srv/base
+    file_server
+  }
+
+  @other host ${OTHER_BASE_DOMAIN}
+  handle @other {
+    root * /srv/other
+    file_server
   }
 
 }

@@ -1,3 +1,5 @@
+netcup.env
+
 !/aio-on-fcos/backup/.keep
 /aio-on-fcos/backup/
 /aio-on-fcos/coredns/
