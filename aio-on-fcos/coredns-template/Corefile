@@ -11,7 +11,7 @@
     erratic
 }
 
-${AIO_DOMAIN}:53 {
+${AIO_BASE_DOMAIN}:53 {
     auto {
         directory /etc/coredns
         reload 15s

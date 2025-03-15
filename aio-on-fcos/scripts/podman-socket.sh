@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+UID=`id -u`
+
 # www-data in container (id=33)
 MY_UID=720928
 MY_GID=720928

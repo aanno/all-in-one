@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+UID=`id -u`
+
 rm -r /run/user/$UID/podman/podman.sock
 # touch /run/user/$UID/podman/podman.sock
 

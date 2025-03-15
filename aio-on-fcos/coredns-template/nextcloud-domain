@@ -1,11 +1,11 @@
-${AIO_DOMAIN}.            IN  SOA     dns.${AIO_DOMAIN}. nc.${AIO_DOMAIN}. 2015082541 7200 3600 1209600 3600
-${AIO_DOMAIN}.            IN  A       ${HOST_CONTAINER_INTERNAL}
-${AIO_DOMAIN}.            IN  AAAA    ${HOST6_CONTAINER_INTERNAL}
-gateway.${AIO_DOMAIN}.    IN  A       10.89.57.1
-gateway.${AIO_DOMAIN}.    IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::1
-gateway6.${AIO_DOMAIN}.   IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::1
-dns.${AIO_DOMAIN}.        IN  A       10.89.57.4
-dns.${AIO_DOMAIN}.        IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::4
-dns6.${AIO_DOMAIN}.       IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::4
-host.${AIO_DOMAIN}.       IN  A       192.168.10.139
-server.${AIO_DOMAIN}.     IN  CNAME   ${AIO_DOMAIN}.
+${AIO_BASE_DOMAIN}.            IN  SOA     dns.${AIO_DOMAIN}. nc.${AIO_DOMAIN}. 2015082541 7200 3600 1209600 3600
+${AIO_DOMAIN}.                 IN  A       ${HOST_CONTAINER_INTERNAL}
+${AIO_DOMAIN}.                 IN  AAAA    ${HOST6_CONTAINER_INTERNAL}
+gateway.${AIO_BASE_DOMAIN}.    IN  A       10.89.57.1
+gateway.${AIO_BASE_DOMAIN}.    IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::1
+gateway6.${AIO_BASE_DOMAIN}.   IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::1
+dns.${AIO_BASE_DOMAIN}.        IN  A       10.89.57.4
+dns.${AIO_BASE_DOMAIN}.        IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::4
+dns6.${AIO_BASE_DOMAIN}.       IN  AAAA    fd49:dc34:d0fe:ef6b:cafe::4
+host.${AIO_BASE_DOMAIN}.       IN  A       192.168.10.139
+server.${AIO_BASE_DOMAIN}.     IN  CNAME   ${AIO_DOMAIN}.

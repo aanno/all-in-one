@@ -2,9 +2,24 @@
     # debug
 }
 
-https://${AIO_DOMAIN}:443 {
-  reverse_proxy localhost:11000
+# https://caddyserver.com/docs/caddyfile/patterns#wildcard-certificates
+
+*.${AIO_BASE_DOMAIN} *.${OTHER_BASE_DOMAIN} {
+
+  @nextcloud host ${AIO_DOMAIN} 
+  handle @nextcloud {
+    reverse_proxy localhost:11000
+  }
+
 }
+
+# *.${OTHER_BASE_DOMAIN} {
+#   redir http://${AIO_BASE_DOMAIN}{uri}
+# }
+
+# https://${AIO_DOMAIN}:443 {
+#   reverse_proxy localhost:11000
+# }
 
 # See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
 # Optional: get a valid certificate for the AIO interface
@@ -14,9 +29,4 @@ https://${AIO_DOMAIN}:8443 {
             tls_insecure_skip_verify
         }
     }
-}
-
-# Is this really needed? (Caddy seems to do that out-of-the-box.)
-${AIO_DOMAIN} {
-  redir https://${AIO_DOMAIN}:443
 }
