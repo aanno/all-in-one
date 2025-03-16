@@ -6,9 +6,13 @@ Copy `env.template` and adapt it to your needs.
 
 Status:
 
-* Work-around for configs property (currently _not_ supported by podman)
-* Currently not running on 'local' domain
-  + setup works but https://nextcloud.local/ returns blank page
+* Work-around for configs property (as configs properties are currently _not_ supported by podman)
+* Currently running on 'local' domain of your choice
+  + setup works
+  + https://nextcloud.my.local/ (AIO_DOMAIN) works
+  + local base domains works
+  + other sub domains do _not_ working locally (as there is no wildcard cert)
+
 * unsure about port 8443
 
 ## Tipps and tricks

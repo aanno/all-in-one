@@ -22,9 +22,32 @@
     reverse_proxy localhost:11000
   }
 
+  @aiosub1 host ${AIO_SUBDOMAIN1}
+  handle @aiosub1 {
+    # https://caddyserver.com/docs/caddyfile/directives/root
+    root * /srv/base/www
+    file_server
+  }
+
+  @othersub1 host ${OTHER_SUBDOMAIN1}
+  handle @othersub1 {
+    root * /srv/other/www
+    file_server
+  }
+
+  # Fallback for otherwise unhandled domains
+  handle {
+    # abort
+    redir https://${AIO_SUBDOMAIN1}{uri}
+    # redir https://www.{host}{uri}
+  }
+
+}
+
+${AIO_BASE_DOMAIN} ${OTHER_BASE_DOMAIN} {
+
   @base host ${AIO_BASE_DOMAIN}
   handle @base {
-    # https://caddyserver.com/docs/caddyfile/directives/root
     root * /srv/base
     file_server
   }

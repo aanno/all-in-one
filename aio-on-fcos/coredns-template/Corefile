@@ -1,4 +1,5 @@
 .:53 {
+    cache
     forward . tls://1.1.1.1 tls://1.0.0.1 {
         tls_servername one.one.one.one
         health_check 5s
@@ -12,6 +13,7 @@
 }
 
 ${AIO_BASE_DOMAIN}:53 {
+    cache
     auto {
         directory /etc/coredns
         reload 15s
