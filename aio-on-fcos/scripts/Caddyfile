@@ -12,6 +12,9 @@
       api_key {env.NETCUP_API_KEY}
       api_password {env.NETCUP_API_PASSWORD}
     }
+    propagation_timeout 1200s
+    propagation_delay 650s
+    resolvers 1.1.1.1
   }
 
   @nextcloud host ${AIO_DOMAIN} 
