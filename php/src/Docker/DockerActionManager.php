@@ -579,6 +579,9 @@ readonly class DockerActionManager {
                 $requestBody['Cmd'] = [$this->configurationManager->GetAdditionalCollaboraOptions()];
             }
         }
+        if ($container->GetIdentifier() != 'nextcloud-aio-domaincheck') {
+            $requestBody['HostConfig']['ExtraHosts'] = [ $this->configurationManager->GetDomain() . ":host-gateway"] ;
+        }
 
         if (count($mounts) > 0) {
             $requestBody['HostConfig']['Mounts'] = $mounts;
