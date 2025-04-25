@@ -1,0 +1,79 @@
+{
+    # debug
+}
+
+# https://caddyserver.com/docs/caddyfile/patterns#wildcard-certificates
+
+*.${AIO_BASE_DOMAIN} *.${OTHER_BASE_DOMAIN} {
+
+  tls {
+    dns netcup {
+      customer_number {env.NETCUP_CUSTOMER_NUMBER}
+      api_key {env.NETCUP_API_KEY}
+      api_password {env.NETCUP_API_PASSWORD}
+    }
+    propagation_timeout 1200s
+    propagation_delay 650s
+    resolvers 1.1.1.1
+  }
+
+  @nextcloud host ${AIO_DOMAIN} 
+  handle @nextcloud {
+    reverse_proxy localhost:11000
+  }
+
+  @aiosub1 host ${AIO_SUBDOMAIN1}
+  handle @aiosub1 {
+    # https://caddyserver.com/docs/caddyfile/directives/root
+    root * /srv/base/www
+    file_server
+  }
+
+  @othersub1 host ${OTHER_SUBDOMAIN1}
+  handle @othersub1 {
+    root * /srv/other/www
+    file_server
+  }
+
+  # Fallback for otherwise unhandled domains
+  handle {
+    # abort
+    redir https://${AIO_SUBDOMAIN1}{uri}
+    # redir https://www.{host}{uri}
+  }
+
+}
+
+${AIO_BASE_DOMAIN} ${OTHER_BASE_DOMAIN} {
+
+  @base host ${AIO_BASE_DOMAIN}
+  handle @base {
+    root * /srv/base
+    file_server
+  }
+
+  @other host ${OTHER_BASE_DOMAIN}
+  handle @other {
+    root * /srv/other
+    file_server
+  }
+
+}
+
+# *.${OTHER_BASE_DOMAIN} {
+#   redir http://${AIO_BASE_DOMAIN}{uri}
+# }
+
+# https://${AIO_DOMAIN}:443 {
+#   reverse_proxy localhost:11000
+# }
+
+# See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+# Optional: get a valid certificate for the AIO interface
+https://${AIO_DOMAIN}:8443 {
+    reverse_proxy https://localhost:8080 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
