@@ -23,14 +23,22 @@ envsubst <./coredns-template/Corefile >./coredns/Corefile
 envsubst <./coredns-template/nextcloud-domain >./coredns/nextcloud-domain
 
 if [ $PULL == "true" ]; then
-$DOCKER pull docker.io/nextcloud/all-in-one:latest
-$DOCKER pull docker.io/nextcloud/aio-postgresql:latest
-$DOCKER pull docker.io/nextcloud/aio-redis:latest
-$DOCKER pull docker.io/nextcloud/aio-watchtower:latest
-$DOCKER pull docker.io/nextcloud/aio-domaincheck:latest
-$DOCKER pull docker.io/nextcloud/aio-notify-push:latest
-$DOCKER pull docker.io/nextcloud/aio-apache:latest
-$DOCKER pull docker.io/nextcloud/aio-borgbackup:latest
+
+$DOCKER pull ghcr.io/nextcloud-releases/all-in-one:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-postgresql:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-redis:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-watchtower:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-domaincheck:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-notify-push:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-apache:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-borgbackup:latest
+
+$DOCKER pull ghcr.io/nextcloud-releases/all-whiteboard:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-talk:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-collabora:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-fulltextsearch:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-imaginary:latest
+
 $DOCKER pull docker.io/library/caddy:latest
 
 $DOCKER compose pull

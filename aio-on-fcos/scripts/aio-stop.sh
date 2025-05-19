@@ -23,21 +23,14 @@ $DOCKER stop \
   nextcloud-aio-nextcloud \
   nextcloud-aio-database \
   nextcloud-aio-redis \
-  nextcloud-aio-whiteboard \
-  nextcloud-aio-fulltextsearch \
-  nextcloud-aio-talk \
   nextcloud-aio-collabora \
-  nextcloud-aio-watchtower  nextcloud-aio-apache \
-  nextcloud-aio-notify-push \
-  nextcloud-aio-nextcloud \
-  nextcloud-aio-database \
-  nextcloud-aio-redis \
-  nextcloud-aio-whiteboard \
-  nextcloud-aio-fulltextsearch \
-  nextcloud-aio-talk \
-  nextcloud-aio-collabora \
-  nextcloud-aio-imaginary \
   nextcloud-aio-watchtower \
+  nextcloud-aio-apache \
+  nextcloud-aio-notify-push \
+  nextcloud-aio-whiteboard \
+  nextcloud-aio-fulltextsearch \
+  nextcloud-aio-talk \
+  nextcloud-aio-imaginary \
   nextcloud-aio-domaincheck \
   nextcloud-aio-borgbackup
 
@@ -47,23 +40,14 @@ $DOCKER rm -f \
   nextcloud-aio-apache \
   nextcloud-aio-notify-push \
   nextcloud-aio-nextcloud \
-  nextcloud-aio-database \
   nextcloud-aio-redis \
   nextcloud-aio-whiteboard \
-  nextcloud-aio-fulltextsearch \
-  nextcloud-aio-talk \
-  nextcloud-aio-collabora \
-  nextcloud-aio-watchtower  nextcloud-aio-apache \
-  nextcloud-aio-notify-push \
-  nextcloud-aio-nextcloud \
+  nextcloud-aio-watchtower \
   nextcloud-aio-database \
-  nextcloud-aio-redis \
-  nextcloud-aio-whiteboard \
   nextcloud-aio-fulltextsearch \
   nextcloud-aio-talk \
   nextcloud-aio-collabora \
   nextcloud-aio-imaginary \
-  nextcloud-aio-watchtower \
   nextcloud-aio-domaincheck \
   nextcloud-aio-borgbackup
 
