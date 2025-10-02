@@ -38,6 +38,7 @@ $DOCKER pull ghcr.io/nextcloud-releases/aio-talk:latest
 $DOCKER pull ghcr.io/nextcloud-releases/aio-collabora:latest
 $DOCKER pull ghcr.io/nextcloud-releases/aio-fulltextsearch:latest
 $DOCKER pull ghcr.io/nextcloud-releases/aio-imaginary:latest
+$DOCKER pull ghcr.io/nextcloud-releases/aio-nextcloud:latest
 
 $DOCKER pull docker.io/library/caddy:latest
 
