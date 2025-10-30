@@ -22,6 +22,13 @@
     reverse_proxy localhost:11000
   }
 
+  @links host ${AIO_SUBDOMAIN3}
+  handle @links {
+    # reverse_proxy localhost:3000
+    root * /srv/base/www
+    file_server
+  }
+
   @aiosub1 host ${AIO_SUBDOMAIN1}
   handle @aiosub1 {
     # https://caddyserver.com/docs/caddyfile/directives/root
