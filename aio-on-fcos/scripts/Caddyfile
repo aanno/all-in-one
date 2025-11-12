@@ -24,9 +24,9 @@
 
   @links host ${AIO_SUBDOMAIN3}
   handle @links {
-    # reverse_proxy localhost:3000
-    root * /srv/base/www
-    file_server
+    reverse_proxy localhost:3000
+    # root * /srv/base/www
+    # file_server
   }
 
   @aiosub1 host ${AIO_SUBDOMAIN1}
