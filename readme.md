@@ -1,5 +1,11 @@
 # Nextcloud All-in-One
 
+Changes on this fork and branch (aanno/all-in-one, branch aanno/aio-on-fcos-coredns-wildcard-3):
+
+* add as directory `aio-on-fcos` that provides code to
+* run aio on podman
+* see `aanno-aio-on-fcos.md` for more details
+
 > [!NOTE]
 > Nextcloud AIO is actively looking for contributors. See [the forum post](https://help.nextcloud.com/t/nextcloud-aio-is-looking-for-contributors/205234).
 

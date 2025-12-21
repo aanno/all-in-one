@@ -1,6 +1,6 @@
-# aanno's aio-on-focos
+# aanno's aio-on-fcos
 
-This is a compose file for podman especially for FCOS.
+This is a compose file for podman especially for FCOS. This _includes_ that nextcloud aio is _working_ with podman and on podman compose. However, automatic update is broken. But there is a _manual_ work around for this. Hence, it you want to run nextcloud aio on podman you should consider trying my work.
 
 Copy `env.template` and adapt it to your needs.
 
@@ -12,8 +12,31 @@ Status:
   + https://nextcloud.my.local/ (AIO_DOMAIN) works
   + local base domains works
   + other sub domains do _not_ working locally (as there is no wildcard cert)
+* Currently running on your.domain (you need an official DNS entry and probably a server on the internet)
+  + setup works
+  + configured domains are working
+  + base domains are working
+  + other sub domains do working _if_ you are able to get a wildcard cert. This normally means that caddy can modify DNS records. As my hosting provider is netcup, I configured this with netcup (see `aio-on-fcos/caddy_build/Dockerfile` for details). But it should be easy to use every DNS service caddy supports!
+* talk currently _not_ working
+* collabora currently _not_ working
+* I'm working on a quadlet/systemd solution right now. Stay tuned!
 
-* unsure about port 8443
+## Drawbacks
+
+* podman is _not_ official supported for nextcloud aio, see [here](https://github.com/nextcloud/all-in-one?tab=readme-ov-file#can-i-run-this-with-podman-instead-of-docker)
+
+### Drawback references
+
+Main problem is that watchtower is _not_ working with podman but
+
+* nextcloud/all-in-one is moving away from this version of watchtower to
+[FR: What differences does this fork of watchtower have?](https://github.com/nicholas-fedor/watchtower/discussions/267#discussioncomment-13201594), hence it might not be a problem with version v11.2.0 and up, see watchtower: [change to a well-maintained repo and add podman compatibility](https://github.com/nextcloud/all-in-one/pull/6533) for details
+
+* [enhance the AIO compatibility with podman](https://github.com/nextcloud/all-in-one/discussions/5994)
+* [Niklas Fedor's modern fork of ](https://watchtower.nickfedor.com/v1.13.0/)
+* [run aio image using podman](https://github.com/nextcloud/all-in-one/discussions/5090) but this gives the _wrong_ answer
+* [Rootless Podman Quadlet](https://github.com/nextcloud/all-in-one/discussions/3487)
+* [[Feature Request] Support for Podman](https://github.com/containrrr/watchtower/issues/1060) on the now archived original watchtower repo
 
 ## Tipps and tricks
 
