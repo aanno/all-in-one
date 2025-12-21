@@ -1,0 +1,16 @@
+[Container]
+ContainerName=caddy
+EnvironmentFile=/home/tpasch/all-in-one/aio-on-fcos/netcup.env
+Image=docker.io/library/caddy:latest
+Network=host
+Pod=nextcloud.pod
+Volume=/home/tpasch/all-in-one/aio-on-fcos/backup:/mnt/backup:z
+Volume=caddy_certs:/certs:z
+Volume=caddy_config:/config:z
+Volume=caddy_data:/data:z
+Volume=/home/tpasch/all-in-one/aio-on-fcos/caddy_sites:/srv:z
+Volume=/home/tpasch/all-in-one/aio-on-fcos/caddy/Caddyfile:/Caddyfile:ro,z
+Volume=/home/tpasch/all-in-one/aio-on-fcos/caddy:/etc/caddy:ro,z
+
+[Service]
+Restart=no

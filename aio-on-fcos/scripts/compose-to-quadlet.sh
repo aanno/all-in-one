@@ -33,9 +33,10 @@ envsubst < $1 \
 
 # -p 4.8 podman version 4.8: RHEL 9.4 has podman 4.9 but then --pod could NOT be given
 
-for i in $TARGET_DIR/$NAME-* $TARGET_DIR/$NAME.*; do
+for i in $TARGET_DIR/${NAME}-* $TARGET_DIR/${NAME}_* $TARGET_DIR/${NAME}.*; do
   BASE=$(basename $i)
-  ln -f $i quadlets/$BASE
+  rm $PWD/quadlets.template/$BASE || true
+  ln -f $i $PWD/quadlets.template/$BASE || true
 done
 
 popd
