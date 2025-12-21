@@ -29,7 +29,7 @@ services:
       # APACHE_IP_BINDING: 127.0.0.1 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
       APACHE_IP_BINDING: 0.0.0.0
       # APACHE_ADDITIONAL_NETWORK: frontend_net # (Optional) Connect the apache container to an additional docker network. Needed when behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) running in a different docker network on same server. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
-      APACHE_ADDITIONAL_NETWORK: nextcloud_frontend
+      APACHE_ADDITIONAL_NETWORK: nextcloud-frontend
       # BORG_RETENTION_POLICY: --keep-within=7d --keep-weekly=4 --keep-monthly=6 # Allows to adjust borgs retention policy. See https://github.com/nextcloud/all-in-one#how-to-adjust-borgs-retention-policy
       # COLLABORA_SECCOMP_DISABLED: false # Setting this to true allows to disable Collabora's Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature
       COLLABORA_SECCOMP_DISABLED: true
@@ -64,7 +64,7 @@ services:
     env_file: netcup.env
     # does not work with host network_mode
     # networks:
-    #   - nextcloud_frontend
+    #   - nextcloud-frontend
     extra_hosts:
       - $AIO_DOMAIN:host-gateway
     volumes:
@@ -122,9 +122,9 @@ volumes: # If you want to store the data on a different drive, see https://githu
 networks:
   nextcloud-aio:
     external: true
-  nextcloud_frontend:
+  nextcloud-frontend:
     external: true
   aio_default:
     # external: true
 
-# podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud_frontend
+# podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud-frontend

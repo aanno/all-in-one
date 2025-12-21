@@ -1,1 +1,14 @@
 [Network]
+# ~/.config/containers/systemd/nextcloud-aio.network
+[Unit]
+Description=Nextcloud AIO Network
+
+[Network]
+Driver=bridge
+Subnet=10.89.57.0/24
+Gateway=10.89.57.1
+DNS=10.89.57.4
+IPv6=true
+IPv6Subnet=fd49:dc34:d0fe:ef6b:cafe::/80
+IPv6Gateway=fd49:dc34:d0fe:ef6b:cafe::1
+IPv6DNS=fd49:dc34:d0fe:ef6b:cafe::4[web:39][web:45]

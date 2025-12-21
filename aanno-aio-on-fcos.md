@@ -51,7 +51,7 @@ Changes w.r.t. official aio:
 4. Create the neccessary network and volumes
    ```sh
    podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge nextcloud-aio
-   podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud_frontend
+   podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud-frontend
    ```
 6. Run aio with:
    ```sh

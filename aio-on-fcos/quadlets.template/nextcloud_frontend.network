@@ -1,1 +1,14 @@
 [Network]
+# ~/.config/containers/systemd/nextcloud-frontend.network
+[Unit]
+Description=Nextcloud Frontend Network
+
+[Network]
+Driver=bridge
+Subnet=10.89.58.0/24
+Gateway=10.89.58.1
+DNS=10.89.58.4
+IPv6=true
+IPv6Subnet=fd49:dc34:d0fe:ef6b:beaf::/80
+IPv6Gateway=fd49:dc34:d0fe:ef6b:beaf::1
+IPv6DNS=fd49:dc34:d0fe:ef6b:beaf::4[web:39][web:45]
