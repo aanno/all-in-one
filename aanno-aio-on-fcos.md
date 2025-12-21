@@ -23,11 +23,11 @@ Status:
 
 ## Overview and quickstart
 
-Changes w.r.t. official ais:
+Changes w.r.t. official aio:
 
 * use of a dedicated DNS server ([coredns](https://coredns.io/)) to circumvent the 'self reference problem'
 * use of docker compatible sockets to allow the mastercontainer to control aio container setup. 
-  This is the very same as aio is run with docker (i.e. ['manual install'](https://github.com/nextcloud/all-in-one/tree/main/manual-install) is NOT used)
+  This is the very same as if aio is run with docker (i.e. ['manual install'](https://github.com/nextcloud/all-in-one/tree/main/manual-install) is NOT used)
 * for this to work you need:
   + enable/start the podman socket and
   + carefully adapt the permission of the socket before running aio
@@ -103,6 +103,73 @@ www-data:x:33:www-data,apache
 ```
 
 If your setup is different you have to adapt the MY_GID variable of `aio-on-fcos/scripts/podman-socket-fix-perms.sh`.
+
+## quadlet and systemd quickstart
+
+### right socket group with systemd
+
+Enable user's podman.socket at boot:
+
+```bash
+# As user 'nc'
+systemctl --user enable podman.socket
+```
+
+```
+# Verify linger is enabled
+sudo loginctl enable-linger nc
+```
+
+Install systemd units (replace <UID_OF_NC> with actual UID from id -u nc):
+
+```bash
+sudo cp usr/local/bin/podman-socket-fixperms.sh /usr/local/bin/podman-socket-fixperms.sh
+sudo cp systemd/system/podman-socket-fixperms.service /etc/systemd/system/podman-socket-fixperms.service
+
+sudo chmod +x /usr/local/bin/podman-socket-fixperms.sh
+sudo touch /var/log/podman-socket-fixperms.log
+sudo chmod 644 /var/log/podman-socket-fixperms.log
+
+# Install units
+sudo systemctl daemon-reload
+sudo systemctl enable podman-socket-fixperms.path
+sudo systemctl start podman-socket-fixperms.path
+```
+
+Test triggers manually:
+
+```bash
+# Monitor in one terminal
+sudo journalctl -u podman-socket-fixperms.service -u podman-socket-fixperms.path -f
+
+# In another terminal as user 'nc':
+systemctl --user restart podman.socket
+
+# Check results:
+tail -f /var/log/podman-socket-fixperms.log
+systemctl status podman-socket-fixperms.service
+systemctl status podman-socket-fixperms.path
+```
+
+Verify permissions:
+
+```bash
+ls -l /run/user/$(id -u nc)/podman/podman.sock
+ls -l /run/user/$(id -u nc)/docker.sock
+stat -c '%a %G' /run/user/$(id -u nc)/podman/podman.sock
+```
+
+Test full cycle:
+
+```bash
+# As user 'nc'
+systemctl --user stop podman.socket
+sleep 2
+systemctl --user start podman.socket
+
+# Check if service re-triggered
+tail /var/log/podman-socket-fixperms.log
+```
 
 ## Drawbacks
 
