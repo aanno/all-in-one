@@ -16,6 +16,7 @@ pushd $GIT_ROOT/aio-on-fcos
 
 NAME=$(yq '.name' compose.yaml)
 TARGET_DIR=~/.config/containers/systemd
+DOCKER_SOCKET=/run/user/$UID/podman/podman.sock
 . .env
 
 # ensure output directory
@@ -23,7 +24,11 @@ mkdir -p $TARGET_DIR | true
 
 envsubst < $1 \
   | yq '(.volumes[] | select(has("external")) | .external) = false |
-     (.networks[] | select(has("external")) | .external) = false' \
+    (.networks[] | select(has("external")) | .external) = false |
+    del(.services.*.extra_hosts) |
+    .services.caddy |= (. | del(.build) | .image = "docker.io/library/caddy:latest") |
+    del(.volumes.nextcloud_aio_mastercontainer.name)' \
+  | tee c.yaml \
   | podlet -u -a --overwrite compose --pod -
 
 # -p 4.8 podman version 4.8: RHEL 9.4 has podman 4.9 but then --pod could NOT be given
