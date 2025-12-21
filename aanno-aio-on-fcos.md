@@ -1,6 +1,6 @@
 # aanno's aio-on-fcos
 
-This is a compose file for podman especially for FCOS. This _includes_ that nextcloud aio is _working_ with podman and on podman compose. However, automatic update is broken. But there is a _manual_ work around for this. Hence, it you want to run nextcloud aio on podman you should consider trying my work.
+The [aio-on-fcos](https://github.com/aanno/all-in-one/tree/aanno/aio-on-fcos-coredns-wildcard-3/aio-on-fcos) directory contains a compose file for podman crafted especially for [FCOS](https://docs.fedoraproject.org/en-US/fedora-coreos/). This _includes_ that [nextcloud aio (all-in-one)](https://github.com/nextcloud/all-in-one) is _working_ **with podman** and on `podman compose`. However, automatic update is broken. But there is a _manual_ work around for this. Hence, it you want to run nextcloud aio on podman you should consider trying my work.
 
 Copy `env.template` and adapt it to your needs.
 
@@ -21,13 +21,96 @@ Status:
 * collabora currently _not_ working
 * I'm working on a quadlet/systemd solution right now. Stay tuned!
 
+## Overview and quickstart
+
+Changes w.r.t. official ais:
+
+* use of a dedicated DNS server ([coredns](https://coredns.io/)) to circumvent the 'self reference problem'
+* use of docker compatible sockets to allow the mastercontainer to control aio container setup. 
+  This is the very same as aio is run with docker (i.e. ['manual install'](https://github.com/nextcloud/all-in-one/tree/main/manual-install) is NOT used)
+* for this to work you need:
+  + enable/start the podman socket and
+  + carefully adapt the permission of the socket before running aio
+
+### podman compose quickstart
+
+1. enable podman socket with
+   ```sh
+   cd all-in-one/aio-on-fcos
+   ./scripts/switchto-podman-socket.sh
+   ```
+2. Adapt the group of the socket to your needs (see section 'right socket group' below)
+   ```sh
+   sudo ./scripts/podman-socket-fix-perms.sh
+   ```
+3. Copy the `env.template` file to `.env` and adapt it to your needs
+   ```sh
+   cp env.template .env
+   # nano .env
+   ```
+4. Create the neccessary network and volumes
+   ```sh
+   podman network create --subnet 10.89.57.0/24 --gateway 10.89.57.1 --dns 10.89.57.4 --driver bridge nextcloud-aio
+   podman network create --subnet 10.89.58.0/24 --gateway 10.89.58.1 --dns 10.89.58.4 --driver bridge --ipv6 --subnet fd49:dc34:d0fe:ef6b:beaf::/80 --gateway fd49:dc34:d0fe:ef6b:beaf::1 --dns fd49:dc34:d0fe:ef6b:beaf::4 nextcloud_frontend
+   ```
+6. Run aio with:
+   ```sh
+   ./scripts/aio-start.sh
+   ```
+7. Stop aio with:
+   ```sh
+   ./scripts/aio-stop.sh
+   ```
+
+### right socket group
+
+The group of the socket must be the right one. 
+
+Example: If you run aio as user 'nc' (1003):
+
+```sh
+ls -l /run/user/$UID/podman/podman.sock 
+srw-rw----. 1 nc 720928 0 Dec 21 11:03 /run/user/1003/podman/podman.sock
+```
+
+But where does this magic '720928' comes from?
+
+See `/etc/subuid` contains the line:
+
+```text
+nc:720896:65536
+```
+
+and `/etc/subgid` contains the line:
+
+
+```text
+nc:720896:65536
+```
+
+Hence, the gid _inside the container_ used for the group is `720928 - 720896 + 1 = 33`!!!
+
+```text
+podman exec -it nextcloud-aio-mastercontainer bash
+
+# and now - inside the container:
+ls -l /var/run/docker.sock 
+srw-rw----    1 root     www-data         0 Dec 21 11:03 /var/run/docker.sock
+
+# what is the name of gid 33?
+getent group 33
+www-data:x:33:www-data,apache
+```
+
+If your setup is different you have to adapt the MY_GID variable of `aio-on-fcos/scripts/podman-socket-fix-perms.sh`.
+
 ## Drawbacks
 
 * podman is _not_ official supported for nextcloud aio, see [here](https://github.com/nextcloud/all-in-one?tab=readme-ov-file#can-i-run-this-with-podman-instead-of-docker)
 
 ### Drawback references
 
-Main problem is that watchtower is _not_ working with podman but
+Main problem is that watchtower (the solution used for updating the container (and images) while running) is _not_ working with podman but
 
 * nextcloud/all-in-one is moving away from this version of watchtower to
 [FR: What differences does this fork of watchtower have?](https://github.com/nicholas-fedor/watchtower/discussions/267#discussioncomment-13201594), hence it might not be a problem with version v11.2.0 and up, see watchtower: [change to a well-maintained repo and add podman compatibility](https://github.com/nextcloud/all-in-one/pull/6533) for details
