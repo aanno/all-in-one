@@ -1,0 +1,7 @@
+[Container]
+DNS=10.89.4.1
+Exec=-conf /etc/coredns/Corefile
+Image=docker.io/coredns/coredns
+Network=nextcloud-aio:ip=10.89.57.4,ip=fd49:dc34:d0fe:ef6b:cafe::4
+Pod=nextcloud.pod
+Volume=/home/tpasch/all-in-one/aio-on-fcos/coredns:/etc/coredns:ro,z

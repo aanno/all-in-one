@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"formulahendry.docker-extension-pack",
+			"matthewpi.caddyfile-support",
+			"DavidAnson.vscode-markdownlint",
+			"jrieken.md-navigate",
+			"ikappas.composer",
+			"DEVSENSE.phptools-vscode"
+		],
+		"unwantedRecommendations": [
+
+		]
+	}
+}

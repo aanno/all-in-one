@@ -1,3 +1,11 @@
+netcup.env
+
+!/aio-on-fcos/backup/.keep
+/aio-on-fcos/backup/
+/aio-on-fcos/coredns/
+/aio-on-fcos/caddy/Caddyfile
+/aio-on-fcos/.env
+/aio-on-fcos/c.yaml
 .DS_Store
 .idea/
 *.iml

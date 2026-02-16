@@ -1,0 +1,13 @@
+[Container]
+ContainerName=nextcloud-aio-mastercontainer
+Environment=APACHE_PORT=11000 APACHE_IP_BINDING=0.0.0.0 APACHE_ADDITIONAL_NETWORK=nextcloud-frontend COLLABORA_SECCOMP_DISABLED=true NEXTCLOUD_MOUNT NEXTCLOUD_MEMORY_LIMIT=1024M "NEXTCLOUD_ADDITIONAL_APKS=ocrmypdf imagemagick ffmpeg" SKIP_DOMAIN_VALIDATION WATCHTOWER_DOCKER_SOCKET_PATH=/run/user/1000/podman/podman.sock
+Image=ghcr.io/nextcloud-releases/all-in-one:latest
+Pod=nextcloud.pod
+RunInit=true
+SecurityLabelDisable=true
+Volume=/home/tpasch/all-in-one/aio-on-fcos/backup:/mnt/backup:z
+Volume=nextcloud_aio_mastercontainer:/mnt/docker-aio-config:z
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro,z
+
+[Service]
+Restart=no
