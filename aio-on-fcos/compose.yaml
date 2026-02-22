@@ -3,7 +3,7 @@ services:
   nextcloud-aio-mastercontainer:
     image: ghcr.io/nextcloud-releases/all-in-one:latest
     init: true
-    restart: no
+    # restart: no
     container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
     # defining networks _will_ break mastercontainer
     # networks:
@@ -59,7 +59,7 @@ services:
   caddy:
     # image: docker.io/library/caddy:latest
     build: ./caddy_build
-    restart: no
+    # restart: no
     container_name: caddy
     env_file: netcup.env
     # does not work with host network_mode
