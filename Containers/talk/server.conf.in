@@ -3,29 +3,45 @@
 # Comment line to disable the listener.
 #listen = 127.0.0.1:8080
 
-# HTTP socket read timeout in seconds.
-#readtimeout = 15
+# HTTP socket read timeout in seconds. This is also the time websocket clients
+# have to respond to ping messages.
+#readtimeout = 30
 
-# HTTP socket write timeout in seconds.
+# HTTP socket write timeout in seconds. Also used for websocket clients.
 #writetimeout = 30
+
+# Interval in seconds in which ping messages are sent to websocket clients.
+# Clients that don't respond within the read timeout are disconnected. Reduce
+# this if a frontend proxy / firewall closes idle connections earlier.
+# Changes only affect new connections.
+#pinginterval = 45
 
 [https]
 # IP and port to listen on for HTTPS requests.
 # Comment line to disable the listener.
 #listen = 127.0.0.1:8443
 
-# HTTPS socket read timeout in seconds.
-#readtimeout = 15
+# HTTPS socket read timeout in seconds. This is also the time websocket clients
+# have to respond to ping messages.
+#readtimeout = 30
 
-# HTTPS socket write timeout in seconds.
+# HTTPS socket write timeout in seconds. Also used for websocket clients.
 #writetimeout = 30
+
+# Interval in seconds in which ping messages are sent to websocket clients.
+# Clients that don't respond within the read timeout are disconnected. Reduce
+# this if a frontend proxy / firewall closes idle connections earlier.
+# Changes only affect new connections.
+#pinginterval = 45
 
 # Certificate / private key to use for the HTTPS server.
 certificate = /etc/nginx/ssl/server.crt
 key = /etc/nginx/ssl/server.key
 
 [app]
-# Set to "true" to install pprof debug handlers.
+# Set to "true" to install pprof debug handlers. Access will only be possible
+# from IPs allowed through the "allowed_ips" option below.
+#
 # See "https://golang.org/pkg/net/http/pprof/" for further information.
 debug = false
 
@@ -43,16 +59,24 @@ debug = false
 [sessions]
 # Secret value used to generate checksums of sessions. This should be a random
 # string of 32 or 64 bytes.
+# If the default value is not changed, a random key will be generated on every
+# start, so sessions can't be resumed after a restart and clustering will not
+# work.
 hashkey = the-secret-for-session-checksums
 
 # Optional key for encrypting data in the sessions. Must be either 16, 24 or
 # 32 bytes.
 # If no key is specified, data will not be encrypted (not recommended).
+# If the default value is not changed, a random key will be generated on every
+# start, so sessions can't be resumed after a restart and clustering will not
+# work.
 blockkey = -encryption-key-
 
 [clients]
 # Shared secret for connections from internal clients. This must be the same
 # value as configured in the respective internal services.
+# If the default value is not changed, a random secret will be generated on
+# every start, so no internal clients can connect.
 internalsecret = the-shared-secret-for-internal-clients
 
 [federation]
@@ -63,6 +87,19 @@ internalsecret = the-shared-secret-for-internal-clients
 
 # Timeout in seconds for requests to federation targets.
 #timeout = 10
+
+# Read timeout in seconds for websocket connections to federation targets. This
+# is the time federation targets have to respond to ping messages.
+#readtimeout = 30
+
+# Write timeout in seconds for websocket connections to federation targets.
+#writetimeout = 30
+
+# Interval in seconds in which ping messages are sent to federation targets.
+# Connections that don't respond within the read timeout are reconnected.
+# Reduce this if a proxy / firewall closes idle connections earlier.
+# Changes only affect new federation connections.
+#pinginterval = 45
 
 [backend]
 # Type of backend configuration.
@@ -190,6 +227,21 @@ connectionsperhost = 8
 # For type "proxy": timeout in seconds for requests to the proxy server.
 #proxytimeout = 2
 
+# For type "proxy": read timeout in seconds for websocket connections to proxy
+# servers. This is the time proxy servers have to respond to ping messages.
+#readtimeout = 30
+
+# For type "proxy": write timeout in seconds for websocket connections to proxy
+# servers.
+#writetimeout = 30
+
+# For type "proxy": interval in seconds in which ping messages are sent to proxy
+# servers. Connections that don't respond within the read timeout are
+# reconnected. Reduce this if a proxy / firewall closes idle connections
+# earlier.
+# Changes only affect new connections to proxy servers.
+#pinginterval = 45
+
 # For type "proxy": type of URL configuration for proxy servers.
 # Defaults to "static".
 #
@@ -270,8 +322,9 @@ connectionsperhost = 8
 #SA = NA
 
 [stats]
-# Comma-separated list of IP addresses that are allowed to access the stats
-# endpoint. Leave empty (or commented) to only allow access from "127.0.0.1".
+# Comma-separated list of IP addresses that are allowed to access the debug,
+# stats and metrics endpoints.
+# Leave empty (or commented) to only allow access from localhost.
 #allowed_ips =
 
 [etcd]
